@@ -75,7 +75,7 @@ module Spaceship
         return resps.flat_map(&:to_models)
       end
 
-      def self.create(client: nil, name: nil, profile_type: nil, bundle_id_id: nil, certificate_ids: nil, device_ids: nil, template_name: nil)
+      def self.create(client: nil, name: nil, profile_type: nil, bundle_id_id: nil, certificate_ids: nil, device_ids: nil, template_name: nil, offline_support: nil)
         client ||= Spaceship::ConnectAPI
         resp = client.post_profiles(
           bundle_id_id: bundle_id_id,
@@ -84,6 +84,8 @@ module Spaceship
           attributes: {
             name: name,
             profileType: profile_type,
+            # Undocumented attribute as of 2022-07-06
+            isOfflineProfile: offline_support,
             templateName: template_name
           }
         )

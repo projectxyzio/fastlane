@@ -4941,6 +4941,7 @@ public func getManagedPlayStorePublishingRights(jsonKey: OptionalConfigValue<Str
    - teamName: The name of your Developer Portal team if you're in multiple teams
    - provisioningName: The name of the profile that is used on the Apple Developer Portal
    - ignoreProfilesWithDifferentName: Use in combination with :provisioning_name - when true only profiles matching this exact name will be downloaded
+   - offlineSupport: Whether the profile supports installing and running the app without an active internet connection
    - outputPath: Directory in which the profile should be stored
    - certId: The ID of the code signing certificate to use (e.g. 78ADL6LVAA)
    - certOwnerName: The certificate name to use for new profiles, or to renew with. (e.g. "Felix Krause")
@@ -4970,6 +4971,7 @@ public func getManagedPlayStorePublishingRights(jsonKey: OptionalConfigValue<Str
                                                       teamName: OptionalConfigValue<String?> = .fastlaneDefault(nil),
                                                       provisioningName: OptionalConfigValue<String?> = .fastlaneDefault(nil),
                                                       ignoreProfilesWithDifferentName: OptionalConfigValue<Bool> = .fastlaneDefault(false),
+                                                      offlineSupport: OptionalConfigValue<Bool> = .fastlaneDefault(false),
                                                       outputPath: String = ".",
                                                       certId: OptionalConfigValue<String?> = .fastlaneDefault(nil),
                                                       certOwnerName: OptionalConfigValue<String?> = .fastlaneDefault(nil),
@@ -4995,6 +4997,7 @@ public func getManagedPlayStorePublishingRights(jsonKey: OptionalConfigValue<Str
     let teamNameArg = teamName.asRubyArgument(name: "team_name", type: nil)
     let provisioningNameArg = provisioningName.asRubyArgument(name: "provisioning_name", type: nil)
     let ignoreProfilesWithDifferentNameArg = ignoreProfilesWithDifferentName.asRubyArgument(name: "ignore_profiles_with_different_name", type: nil)
+    let offlineSupportArg = offlineSupport.asRubyArgument(name: "offline_support", type: nil)
     let outputPathArg = RubyCommand.Argument(name: "output_path", value: outputPath, type: nil)
     let certIdArg = certId.asRubyArgument(name: "cert_id", type: nil)
     let certOwnerNameArg = certOwnerName.asRubyArgument(name: "cert_owner_name", type: nil)
@@ -5019,6 +5022,7 @@ public func getManagedPlayStorePublishingRights(jsonKey: OptionalConfigValue<Str
                                           teamNameArg,
                                           provisioningNameArg,
                                           ignoreProfilesWithDifferentNameArg,
+                                          offlineSupportArg,
                                           outputPathArg,
                                           certIdArg,
                                           certOwnerNameArg,
@@ -9876,6 +9880,7 @@ public func setupTravis(force: OptionalConfigValue<Bool> = .fastlaneDefault(fals
    - teamName: The name of your Developer Portal team if you're in multiple teams
    - provisioningName: The name of the profile that is used on the Apple Developer Portal
    - ignoreProfilesWithDifferentName: Use in combination with :provisioning_name - when true only profiles matching this exact name will be downloaded
+   - offlineSupport: Whether the profile supports installing and running the app without an active internet connection
    - outputPath: Directory in which the profile should be stored
    - certId: The ID of the code signing certificate to use (e.g. 78ADL6LVAA)
    - certOwnerName: The certificate name to use for new profiles, or to renew with. (e.g. "Felix Krause")
@@ -9905,6 +9910,7 @@ public func setupTravis(force: OptionalConfigValue<Bool> = .fastlaneDefault(fals
                                     teamName: OptionalConfigValue<String?> = .fastlaneDefault(nil),
                                     provisioningName: OptionalConfigValue<String?> = .fastlaneDefault(nil),
                                     ignoreProfilesWithDifferentName: OptionalConfigValue<Bool> = .fastlaneDefault(false),
+                                    offlineSupport: OptionalConfigValue<Bool> = .fastlaneDefault(false),
                                     outputPath: String = ".",
                                     certId: OptionalConfigValue<String?> = .fastlaneDefault(nil),
                                     certOwnerName: OptionalConfigValue<String?> = .fastlaneDefault(nil),
@@ -9930,6 +9936,7 @@ public func setupTravis(force: OptionalConfigValue<Bool> = .fastlaneDefault(fals
     let teamNameArg = teamName.asRubyArgument(name: "team_name", type: nil)
     let provisioningNameArg = provisioningName.asRubyArgument(name: "provisioning_name", type: nil)
     let ignoreProfilesWithDifferentNameArg = ignoreProfilesWithDifferentName.asRubyArgument(name: "ignore_profiles_with_different_name", type: nil)
+    let offlineSupportArg = offlineSupport.asRubyArgument(name: "offline_support", type: nil)
     let outputPathArg = RubyCommand.Argument(name: "output_path", value: outputPath, type: nil)
     let certIdArg = certId.asRubyArgument(name: "cert_id", type: nil)
     let certOwnerNameArg = certOwnerName.asRubyArgument(name: "cert_owner_name", type: nil)
@@ -9954,6 +9961,7 @@ public func setupTravis(force: OptionalConfigValue<Bool> = .fastlaneDefault(fals
                                           teamNameArg,
                                           provisioningNameArg,
                                           ignoreProfilesWithDifferentNameArg,
+                                          offlineSupportArg,
                                           outputPathArg,
                                           certIdArg,
                                           certOwnerNameArg,
