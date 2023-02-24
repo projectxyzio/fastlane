@@ -1,5 +1,5 @@
 // DeliverfileProtocol.swift
-// Copyright (c) 2022 FastlaneTools
+// Copyright (c) 2023 FastlaneTools
 
 public protocol DeliverfileProtocol: AnyObject {
     /// Path to your App Store Connect API Key JSON file (https://docs.fastlane.tools/app-store-connect-api/#using-fastlane-api-key-json-file)
@@ -59,7 +59,7 @@ public protocol DeliverfileProtocol: AnyObject {
     /// Clear all previously uploaded screenshots before uploading the new ones
     var overwriteScreenshots: Bool { get }
 
-    /// Sync screenshots with local ones. This is currently beta optionso set true to 'FASTLANE_ENABLE_BETA_DELIVER_SYNC_SCREENSHOTS' environment variable as well
+    /// Sync screenshots with local ones. This is currently beta option so set true to 'FASTLANE_ENABLE_BETA_DELIVER_SYNC_SCREENSHOTS' environment variable as well
     var syncScreenshots: Bool { get }
 
     /// Submit the new version for Review after uploading everything
@@ -264,4 +264,4 @@ public extension DeliverfileProtocol {
 
 // Please don't remove the lines below
 // They are used to detect outdated files
-// FastlaneRunnerAPIVersion [0.9.106]
+// FastlaneRunnerAPIVersion [0.9.114]

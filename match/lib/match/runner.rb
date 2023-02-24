@@ -309,6 +309,12 @@ module Match
                                                                            platform: params[:platform]),
                              parsed["TeamIdentifier"].first)
 
+      cert_info = Utils.get_cert_info(parsed["DeveloperCertificates"].first.string).to_h
+      Utils.fill_environment(Utils.environment_variable_name_certificate_name(app_identifier: app_identifier,
+                                                                                        type: prov_type,
+                                                                                    platform: params[:platform]),
+                             cert_info["Common Name"])
+
       Utils.fill_environment(Utils.environment_variable_name_profile_name(app_identifier: app_identifier,
                                                                                     type: prov_type,
                                                                                 platform: params[:platform]),
@@ -330,7 +336,7 @@ module Match
 
       prov_types_without_devices = [:appstore, :developer_id]
       if !prov_types_without_devices.include?(prov_type) && !params[:force]
-        force = device_count_different?(profile: profile, keychain_path: keychain_path, platform: params[:platform].to_sym)
+        force = device_count_different?(profile: profile, keychain_path: keychain_path, platform: params[:platform].to_sym, include_mac_in_profiles: params[:include_mac_in_profiles])
       else
         # App Store provisioning profiles don't contain device identifiers and
         # thus shouldn't be renewed if the device count has changed.
@@ -341,7 +347,7 @@ module Match
       return force
     end
 
-    def device_count_different?(profile: nil, keychain_path: nil, platform: nil)
+    def device_count_different?(profile: nil, keychain_path: nil, platform: nil, include_mac_in_profiles: false)
       return false unless profile
 
       parsed = FastlaneCore::ProvisioningProfile.parse(profile, keychain_path)
@@ -373,6 +379,9 @@ module Match
           else
             []
           end
+        if platform == :ios && include_mac_in_profiles
+          device_classes += [Spaceship::ConnectAPI::Device::DeviceClass::APPLE_SILICON_MAC]
+        end
 
         devices = Spaceship::ConnectAPI::Device.all
         unless device_classes.empty?
